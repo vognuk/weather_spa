@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import location from "./core/utils/getLocation";
+// import location from "./core/utils/getLocation";
+// import woeid from "woeid";
 
-location();
+// location();
 
 ReactDOM.render(
   <React.StrictMode>
