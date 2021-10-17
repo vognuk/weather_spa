@@ -1,22 +1,33 @@
 .container {
+  padding: 10px;
+}
+
+.wraper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: 15px auto;
   padding: 10px;
-  width: 320px;
-
   border-radius: 10px;
+  width: 260px;
+
+  color: black;
+  box-shadow: inset 0px 0px 3px 0px grey;
 }
 
-.containerTen {
+.ten {
   background-color: #fff700;
 }
 
-.containerMinusTen {
+.minusTen {
   background-color: #00ffff;
 }
-.containerPlusThirteen {
+.plusThirteen {
   background-color: #ff8c00;
+}
+
+.slider {
+  display: flex;
+  justify-content: center;
 }

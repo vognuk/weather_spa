@@ -12,19 +12,24 @@ const WeatherBlock = ({ data }) => {
   getWeatherURL();
   // localStorage.setItem("city_name", data.name);
   const [temp, setTemp] = useState(data.main?.temp);
+  const [iconAlt, setIconAlt] = useState(data.weather?.description);
+  const [icon, setIcon] = useState(data.weather[0]?.icon);
+  const [unixTime, setUnixTime] = useState(data?.dt);
 
   //multiclass switch by https://www.npmjs.com/package/classnames
-
   let cx = classNames.bind(s);
   let className = cx({
-    container: true,
-    containerMinusTen: temp <= 10,
-    containerTen: temp >= 10,
-    containerPlusThirteen: temp >= 30,
+    wraper: true,
+    minusTen: temp <= 10,
+    ten: temp >= 10,
+    plusThirteen: temp >= 30,
   });
 
   useEffect(() => {
     setTemp(data.main?.temp);
+    setIconAlt(data.weather?.description);
+    setIcon(data.weather[0]?.icon);
+    setUnixTime(data?.dt);
   }, [data]);
 
   const onChange = (e) => {
@@ -32,15 +37,24 @@ const WeatherBlock = ({ data }) => {
     setTemp(newTemp);
   };
 
+  let date = new Date().toLocaleDateString("ua-UA");
+  let time = new Date().toLocaleTimeString("ua-UA");
+
   return (
-    <section>
+    <section className={s.container}>
       <div className={className}>
-        <h1>Weather</h1>
-        <img src={sun} alt="Sun"></img>
-        <p>{String(Math.round(temp))}</p>
-        <p>in {String(data?.name || "")}</p>
+        <h2>Weather</h2>
+        <span>{date}</span>
+        <span>{time}</span>
+        <img
+          src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+          alt={iconAlt}
+        ></img>
+        <h1>{String(Math.round(temp))} &deg;</h1>
+        <h3>in {String(data?.name || "")}</h3>
       </div>
       <RangeStepInput
+        className={s.slider}
         min={-30}
         max={40}
         value={temp}
