@@ -14,12 +14,13 @@ const WeatherBlock = ({ data }) => {
   const [temp, setTemp] = useState(data.main?.temp);
 
   //multiclass switch by https://www.npmjs.com/package/classnames
+
   let cx = classNames.bind(s);
   let className = cx({
     container: true,
-    containerTen: data.main.temp >= 10,
-    containerMinusTen: data.main.temp <= -10,
-    containerPlusThirteen: data.main.temp >= 30,
+    containerMinusTen: temp <= 10,
+    containerTen: temp >= 10,
+    containerPlusThirteen: temp >= 30,
   });
 
   useEffect(() => {
