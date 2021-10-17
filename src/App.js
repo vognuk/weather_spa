@@ -1,13 +1,15 @@
 import "./App.css";
-import WeatherWithFetch from "./components/weatherBlock/weatherBlock";
+// import "./style.scss";
+import WeatherWithFetch from "./components/WeatherBlock/WeatherBlock";
 
 function App() {
   return (
     <div className="App">
+      <header></header>
       <main>
-        <h1>Test</h1>
         <WeatherWithFetch />
       </main>
+      <footer></footer>
     </div>
   );
 }

@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 10px;
+  width: 320px;
+
+  border-radius: 10px;
+}
+
+.containerTen {
+  background-color: #fff700;
+}
+
+.containerMinusTen {
+  background-color: #00ffff;
+}
+.containerPlusThirteen {
+  background-color: #ff8c00;
+}
