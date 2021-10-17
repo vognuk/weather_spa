@@ -4,7 +4,7 @@ const getWeatherURL = () => {
 
   const onGetPositionSuccess = (position) => {
     navigator.geolocation.getCurrentPosition((position) => {
-      DAY_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${API_KEY}`;
+      DAY_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${API_KEY}`;
       localStorage.setItem("DAY_URL", DAY_URL);
     });
   };

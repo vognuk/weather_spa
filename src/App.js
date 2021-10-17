@@ -1,13 +1,14 @@
 import "./App.css";
-import WeatherWithFetch from "./components/weatherBlock/weatherBlock";
-
+// import "./style.scss";
+import MainPage from "./views/MainPage";
 function App() {
   return (
     <div className="App">
+      <header></header>
       <main>
-        <h1>Test</h1>
-        <WeatherWithFetch />
+        <MainPage />
       </main>
+      <footer></footer>
     </div>
   );
 }
