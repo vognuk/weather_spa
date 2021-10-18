@@ -1,12 +1,22 @@
 import React from "react";
-import WeatherWithFetch from "../components/WeatherBlock/WeatherBlock";
-// import Slider from "../components/Slider/Slider";
+import WeatherBlock from "../components/WeatherBlock/WeatherBlock";
+import withFetch from "../hoc/withFetch";
 
 const MainPage = () => {
+  const WeatherWithFetch = withFetch(
+    WeatherBlock,
+    localStorage.getItem("CITY_URL")
+  );
+
+  const CityWeatherWithFetch = withFetch(
+    WeatherBlock,
+    localStorage.getItem("CURRENT_CITY_URL")
+  );
+
   return (
     <>
       <WeatherWithFetch />
-      {/* <Slider /> */}
+      <CityWeatherWithFetch />
     </>
   );
 };

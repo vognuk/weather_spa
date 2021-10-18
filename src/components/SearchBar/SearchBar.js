@@ -4,29 +4,32 @@ import { toast } from "react-toastify";
 import s from "./SearchBar.module.css";
 import getWeatherURL from "../../core/utils/getWeatherURL";
 
-const SearchBar = () => {
-  const [initialValue, setInitialValue] = useState("");
+const SearchBar = ({ setReload }) => {
+  const [initualValue, setInitialValue] = useState();
+  let API_KEY = "e04d5811cb452e53253fd27c4c26cb5f";
+  let CITY_URL = "";
 
   const handleInputChange = (e) => {
-    if (/[а-яё]+/i.test(e.currentTarget.value)) {
-      toast.error("Only English.");
-      e.currentTarget.value = "";
-    }
+    // if (/[а-яё]+/i.test(e.currentTarget.value)) {
+    //   toast.error("Only English.");
+    //   e.currentTarget.value = "";
+    // }
     setInitialValue(e.currentTarget.value.toLowerCase());
-    // localStorage.setItem("query", initialValue);
+
+    CITY_URL = `https://api.openweathermap.org/data/2.5/weather?q=${e.currentTarget.value}&units=metric&appid=${API_KEY}`;
+    localStorage.setItem("CITY_URL", CITY_URL);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (initialValue.trim() === "") {
+    if (!initualValue) {
       toast.error("Please enter city name.");
       return;
     }
-
-    localStorage.setItem("query", initialValue);
-    getWeatherURL();
+    setReload(true);
     setInitialValue("");
+    getWeatherURL();
   };
 
   return (
@@ -43,8 +46,8 @@ const SearchBar = () => {
           type="text"
           autoComplete="off"
           autoFocus
-          placeholder="Search weather in city..."
-          value={initialValue}
+          placeholder="Search weather in the city..."
+          value={initualValue}
           onChange={handleInputChange}
         />
       </form>
