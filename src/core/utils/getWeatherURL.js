@@ -1,13 +1,22 @@
 const getWeatherURL = () => {
   let API_KEY = "e04d5811cb452e53253fd27c4c26cb5f";
   let DAY_URL = "";
+  const coords =
+    "${(lat = position.coords.latitude)}&lon=${position.coords.longitude}";
+  let searchQuery = `q=${localStorage.getItem("query")}`;
+  console.log(searchQuery);
 
   const onGetPositionSuccess = (position) => {
     navigator.geolocation.getCurrentPosition((position) => {
-      DAY_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${API_KEY}`;
+      DAY_URL = `https://api.openweathermap.org/data/2.5/weather?${
+        "" ? coords : searchQuery
+      }&units=metric&appid=${API_KEY}`;
       localStorage.setItem("DAY_URL", DAY_URL);
+      // localStorage.setItem("query", "");
     });
   };
+
+  // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
   const onGetPositionError = (error) => {
     console.log(error);

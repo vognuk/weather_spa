@@ -5,18 +5,38 @@ import getWeatherURL from "../../core/utils/getWeatherURL";
 import withFetch from "../../hoc/withFetch";
 import { RangeStepInput } from "react-range-step-input";
 import forceNumber from "force-number";
-
-import sun from "../../assets/images/weather128/sun.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const WeatherBlock = ({ data }) => {
   getWeatherURL();
-  // localStorage.setItem("city_name", data.name);
+  localStorage.setItem("current_city_name", data.name);
   const [temp, setTemp] = useState(data.main?.temp);
   const [iconAlt, setIconAlt] = useState(data.weather?.description);
   const [icon, setIcon] = useState(data.weather[0]?.icon);
-  const [unixTime, setUnixTime] = useState(data?.dt);
+  let date = new Date().toLocaleDateString("ua-UA");
+  let time = new Date().toLocaleTimeString("ua-UA");
 
-  //multiclass switch by https://www.npmjs.com/package/classnames
+  useEffect(() => {
+    setTemp(data.main?.temp);
+    setIconAlt(data.weather?.description);
+    setIcon(data.weather[0]?.icon);
+    // window.addEventListener("storage", () => {});
+  }, [data]);
+
+  //Show warning after changing temperature value by slider.
+  const notify = () =>
+    toast.warn("Temperature value is false! Please reload page.", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+  //Multiclass switch by https://www.npmjs.com/package/classnames for temperature color switcher.
   let cx = classNames.bind(s);
   let className = cx({
     wraper: true,
@@ -25,23 +45,26 @@ const WeatherBlock = ({ data }) => {
     plusThirteen: temp >= 30,
   });
 
-  useEffect(() => {
-    setTemp(data.main?.temp);
-    setIconAlt(data.weather?.description);
-    setIcon(data.weather[0]?.icon);
-    setUnixTime(data?.dt);
-  }, [data]);
-
+  //Handling of slider move.
   const onChange = (e) => {
     const newTemp = forceNumber(e.target.value);
     setTemp(newTemp);
+    notify();
   };
-
-  let date = new Date().toLocaleDateString("ua-UA");
-  let time = new Date().toLocaleTimeString("ua-UA");
 
   return (
     <section className={s.container}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className={className}>
         <h2>Weather</h2>
         <span>{date}</span>
@@ -60,6 +83,7 @@ const WeatherBlock = ({ data }) => {
         value={temp}
         step={1}
         onChange={onChange}
+        onClick={notify}
       />
     </section>
   );

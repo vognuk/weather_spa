@@ -10,10 +10,17 @@ const withFetch = (WrappedInHOCComponent, requestUrl) => {
     const [isError, setIsError] = useState(false);
 
     useEffect(async () => {
-      const result = await axios(requestUrl);
-      setData(result.data);
-      setIsLoading(false);
+      try {
+        const result = await axios(requestUrl);
+        setData(result.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsError(true);
+      }
     }, [requestUrl]);
+
+    // window.addEventListener("storage", () => {});
 
     return (
       <WrappedInHOCComponent
