@@ -1,5 +1,5 @@
 import React from "react";
-import WeatherBlock from "../components/WeatherBlock/weatherBlock";
+import WeatherBlock from "../components/WeatherBlock/WeatherBlock";
 import withFetch from "../hoc/withFetch";
 
 const MainPage = () => {
