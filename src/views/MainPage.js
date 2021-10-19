@@ -4,13 +4,15 @@ import withFetch from "../hoc/withFetch";
 
 const MainPage = () => {
   const WeatherWithFetch = withFetch(
+    "Search result for",
     WeatherBlock,
-    localStorage.getItem("CITY_URL")
+    sessionStorage.getItem("CITY_URL")
   );
 
   const CityWeatherWithFetch = withFetch(
+    "Current city weather in",
     WeatherBlock,
-    localStorage.getItem("CURRENT_CITY_URL")
+    sessionStorage.getItem("CURRENT_CITY_URL")
   );
 
   return (

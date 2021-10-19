@@ -3,10 +3,10 @@ import { ImSearch } from "react-icons/im";
 import { toast } from "react-toastify";
 import s from "./SearchBar.module.css";
 import getWeatherURL from "../../core/utils/getWeatherURL";
+import variables from "../../core/constants/variables";
 
 const SearchBar = ({ setReload }) => {
   const [initualValue, setInitialValue] = useState();
-  let API_KEY = "e04d5811cb452e53253fd27c4c26cb5f";
   let CITY_URL = "";
 
   const handleInputChange = (e) => {
@@ -16,8 +16,8 @@ const SearchBar = ({ setReload }) => {
     // }
     setInitialValue(e.currentTarget.value.toLowerCase());
 
-    CITY_URL = `https://api.openweathermap.org/data/2.5/weather?q=${e.currentTarget.value}&units=metric&appid=${API_KEY}`;
-    localStorage.setItem("CITY_URL", CITY_URL);
+    CITY_URL = `https://api.openweathermap.org/data/2.5/weather?q=${e.currentTarget.value}&units=metric&appid=${variables.API_KEY}`;
+    sessionStorage.setItem("CITY_URL", CITY_URL);
   };
 
   const handleSubmit = (e) => {

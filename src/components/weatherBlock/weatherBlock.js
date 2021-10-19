@@ -7,8 +7,8 @@ import forceNumber from "force-number";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const WeatherBlock = ({ data }) => {
-  localStorage.setItem("current_city_name", data.name);
+const WeatherBlock = ({ data, heading }) => {
+  sessionStorage.setItem("current_city_name", data.name);
   const [temp, setTemp] = useState(data.main?.temp);
   const [iconAlt, setIconAlt] = useState(data.weather?.description);
   const [icon, setIcon] = useState(data.weather[0]?.icon);
@@ -20,7 +20,7 @@ const WeatherBlock = ({ data }) => {
   }, [data]);
 
   //Show warning after changing temperature value by slider.
-  const notify = () =>
+  const notifyTempCangeForced = () =>
     toast.warn("Temperature value is false! Please reload page.", {
       position: "top-right",
       autoClose: 5000,
@@ -34,6 +34,7 @@ const WeatherBlock = ({ data }) => {
   //Multiclass switch by https://www.npmjs.com/package/classnames for temperature color switcher.
   let cx = classNames.bind(s);
   let className = cx({
+    hide: data.name === "City",
     wraper: true,
     minusTen: temp <= 10,
     ten: temp >= 10,
@@ -44,43 +45,60 @@ const WeatherBlock = ({ data }) => {
   const onChange = (e) => {
     const newTemp = forceNumber(e.target.value);
     setTemp(newTemp);
-    notify();
+    notifyTempCangeForced();
   };
 
   getWeatherURL();
 
   return (
-    <section className={s.container}>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <div className={className}>
-        <h2>Weather</h2>
-        <img
-          src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-          alt={iconAlt}
-        ></img>
-        <h1>{String(Math.round(temp))} &deg;</h1>
-        <h3>in {String(data?.name || "")}</h3>
-      </div>
-      <RangeStepInput
-        className={s.slider}
-        min={-30}
-        max={40}
-        value={temp}
-        step={1}
-        onChange={onChange}
-        onClick={notify}
-      />
-    </section>
+    <>
+      {
+        (heading =
+          data.name === "City" ? (
+            <>
+              {sessionStorage.getItem("CITY_URL") && (
+                <p className={s.failedResult}>
+                  no results or city name is not correct
+                </p>
+              )}
+            </>
+          ) : (
+            <section className={s.container}>
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
+              <div className={className}>
+                <h2>{heading}</h2>
+                <h2> {String(data?.name || "")}</h2>
+                <img
+                  src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                  alt={iconAlt}
+                ></img>
+                <h1>{String(Math.round(temp))} &deg;</h1>
+
+                {heading === "Current city weather in" && (
+                  <RangeStepInput
+                    className={s.slider}
+                    min={-30}
+                    max={40}
+                    value={temp}
+                    step={1}
+                    onChange={onChange}
+                  />
+                )}
+              </div>
+            </section>
+          ))
+      }
+    </>
   );
 };
 
