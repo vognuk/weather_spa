@@ -11,7 +11,7 @@ function App() {
     setReload(false);
   }, [reload]);
 
-  window.addEventListener("load", (e) => {});
+  // window.addEventListener("load", (e) => {});
 
   return (
     <div className="App">

@@ -5,8 +5,8 @@ import s from "./SearchBar.module.css";
 import getWeatherURL from "../../core/utils/getWeatherURL";
 import variables from "../../core/constants/variables";
 
-const SearchBar = ({ setReload }) => {
-  const [initualValue, setInitialValue] = useState();
+const SearchBar = ({ setReload, initualValue, setInitialValue }) => {
+  // const [initualValue, setInitialValue] = useState();
   let CITY_URL = "";
 
   const handleInputChange = (e) => {

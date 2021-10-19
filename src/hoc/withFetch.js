@@ -7,7 +7,7 @@ import initialWeatherData from "../core/store/initialWeatherData";
 const withFetch = (heading, WrappedInHOCComponent, requestUrl) => {
   return (props) => {
     const [data, setData] = useState(initialWeatherData);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
     useEffect(async () => {
@@ -24,6 +24,7 @@ const withFetch = (heading, WrappedInHOCComponent, requestUrl) => {
       <WrappedInHOCComponent
         data={data}
         isLoading={isLoading}
+        setIsLoading={setIsLoading}
         isError={isError}
         {...props}
         getData={(requestUrl) => axios(requestUrl)}

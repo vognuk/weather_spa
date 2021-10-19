@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import WeatherBlock from "../components/WeatherBlock/WeatherBlock";
 import withFetch from "../hoc/withFetch";
+import Preloader from "../components/Preloader/Preloader";
 
 const MainPage = () => {
   const WeatherWithFetch = withFetch(
@@ -17,8 +18,10 @@ const MainPage = () => {
 
   return (
     <>
-      <WeatherWithFetch />
       <CityWeatherWithFetch />
+      <Suspense fallback={<Preloader />}>
+        <WeatherWithFetch />
+      </Suspense>
     </>
   );
 };
