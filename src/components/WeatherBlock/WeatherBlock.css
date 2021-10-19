@@ -1,22 +1,50 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  padding: 10px;
-  width: 320px;
-
-  border-radius: 10px;
+  display: block;
+  padding: 5px 15px;
 }
 
-.containerTen {
+.wraper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px auto;
+  padding: 5px 25px;
+  border-radius: 10px;
+  width: 50%;
+
+  color: #3f51b5;
+  box-shadow: inset 0px 0px 3px 0px #3f51b5;
+}
+
+@media screen and (max-width: 1080px) {
+  .wraper {
+    flex-direction: column;
+    width: 300px;
+  }
+}
+
+.ten {
   background-color: #fff700;
 }
 
-.containerMinusTen {
+.minusTen {
   background-color: #00ffff;
 }
-.containerPlusThirteen {
+.plusThirteen {
   background-color: #ff8c00;
+}
+
+.slider {
+  display: flex;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+s.failedResult {
+  font-style: italic;
 }
